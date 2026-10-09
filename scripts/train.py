@@ -18,10 +18,12 @@ from tqdm import tqdm
 from transformers import GPT2Config, GPT2LMHeadModel, PreTrainedTokenizerFast
 from transformers import get_cosine_schedule_with_warmup
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 # Import our data pipeline
 from scripts.prepare_data import prepare_dataloaders, RAW_DATA_DIR, TOKENIZER_DIR
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = PROJECT_ROOT / "configs" / "model_config.yaml"
 CHECKPOINT_DIR = PROJECT_ROOT / "models" / "checkpoints"
 LOG_DIR = PROJECT_ROOT / "logs"

@@ -1,0 +1,76 @@
+# ==============================================================================
+# LLM Training Configuration
+# ==============================================================================
+# This is a starter config for training a small GPT-style language model.
+# Adjust parameters based on your GPU memory and dataset size.
+
+# --- Model Architecture ---
+model:
+  type: "gpt2"
+  vocab_size: 16000             # 16k vocab saves ~6M parameters vs 32k/50k
+  hidden_size: 384              # 384 hidden dim
+  num_hidden_layers: 6          # 6 transformer layers
+  num_attention_heads: 6        # 384 / 6 = 64 head dim
+  intermediate_size: 1536       # 4 * hidden_size
+  max_position_embeddings: 512  # 512 context window
+  dropout: 0.1
+  activation: "gelu_new"
+
+# --- Tokenizer ---
+tokenizer:
+  type: "bpe"
+  vocab_size: 16000
+  special_tokens:
+    - "<pad>"
+    - "<unk>"
+    - "<bos>"
+    - "<eos>"
+
+# --- Training ---
+training:
+  epochs: 3
+  batch_size: 8                 # Fits safely in 4GB VRAM
+  gradient_accumulation_steps: 4 # Effective batch size = 32
+  learning_rate: 6.0e-4
+  weight_decay: 0.01
+  warmup_steps: 500
+  max_grad_norm: 1.0
+  fp16: true                    # Mixed-precision training
+  seed: 42
+
+  # Optimizer
+  optimizer: "adamw"
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1.0e-8
+
+  # Scheduler
+  lr_scheduler: "cosine"        # linear, cosine, cosine_with_restarts
+
+# --- Data ---
+data:
+  train_file: "data/processed/train.txt"
+  val_file: "data/processed/val.txt"
+  max_seq_length: 512
+  preprocessing_num_workers: 4
+
+# --- Checkpointing ---
+checkpointing:
+  output_dir: "models/checkpoints"
+  save_steps: 500
+  save_total_limit: 3           # Keep only N most recent checkpoints
+  resume_from_checkpoint: null  # Path to resume training
+
+# --- Logging ---
+logging:
+  log_dir: "logs/"
+  logging_steps: 10
+  report_to: "tensorboard"      # tensorboard, wandb, or both
+  wandb_project: "my-llm"
+  wandb_run_name: null          # Auto-generated if null
+
+# --- Hardware ---
+hardware:
+  device: "cuda"                # cuda or cpu
+  dataloader_num_workers: 4
+  pin_memory: true

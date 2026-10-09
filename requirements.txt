@@ -1,0 +1,25 @@
+# Core ML Framework
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# Hugging Face Ecosystem
+transformers>=4.36.0
+datasets>=2.16.0
+tokenizers>=0.15.0
+accelerate>=0.25.0
+safetensors>=0.4.0
+
+# Scientific Computing
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# Progress Bars
+tqdm>=4.65.0
+
+# Utilities
+wandb>=0.16.0
+tensorboard>=2.14.0
+pyyaml>=6.0

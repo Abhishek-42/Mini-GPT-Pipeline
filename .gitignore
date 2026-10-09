@@ -1,0 +1,59 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model weights & checkpoints (large files)
+models/checkpoints/*.pt
+models/checkpoints/*.bin
+models/checkpoints/*.safetensors
+models/checkpoints/Rix-17M-HF/
+models/trained/*.pt
+models/trained/*.bin
+models/trained/*.safetensors
+*.ckpt
+
+# Data files (large)
+data/raw/*.txt
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.jsonl
+data/raw/*.parquet
+data/processed/*.txt
+data/processed/*.bin
+data/tokenized/*.bin
+data/tokenized/*.arrow
+
+# Logs
+logs/
+wandb/
+runs/
+
+# Local private guide (not pushed to GitHub)
+LOCAL_GUIDE.md
+
+# Misc
+*.log
+.env

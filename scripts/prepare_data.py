@@ -37,7 +37,7 @@ config = load_config()
 VOCAB_SIZE = config["model"]["vocab_size"]
 CONTEXT_LENGTH = config["model"]["max_position_embeddings"]
 BATCH_SIZE = config["training"]["batch_size"]
-TARGET_NUM_SAMPLES = 10000  # High-quality subset for tokenizer training & initial dataloaders
+TARGET_NUM_SAMPLES = 100000  # Scaled up for better language modeling & generalization
 
 
 def ensure_dirs():

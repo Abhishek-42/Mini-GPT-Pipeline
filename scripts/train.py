@@ -110,11 +110,17 @@ def main(verify_only=False, resume_checkpoint=None):
         sys.exit(1)
         
     tokenizer = PreTrainedTokenizerFast.from_pretrained(str(TOKENIZER_DIR))
-    raw_text_file = RAW_DATA_DIR / "fineweb_edu_10000.txt"
+    
+    # Check for the scaled 100k dataset first, otherwise fallback to existing
+    raw_text_file = RAW_DATA_DIR / "fineweb_edu_100000.txt"
+    if not raw_text_file.exists():
+        raw_text_file = RAW_DATA_DIR / "fineweb_edu_10000.txt"
     
     if not raw_text_file.exists():
-        print(f"[ERROR] Data file not found: {raw_text_file}")
+        print(f"[ERROR] Data file not found in {RAW_DATA_DIR}. Please run prepare_data.py first.")
         sys.exit(1)
+        
+    print(f"[INFO] Using dataset: {raw_text_file.name}")
         
     train_loader, val_loader = prepare_dataloaders(
         raw_text_file=raw_text_file,
